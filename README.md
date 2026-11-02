@@ -143,39 +143,11 @@ npm test
 
 Tests use an in-memory MongoDB instance. They do not need a local MongoDB process.
 
-## Screenshots
 
-PNG captures of the required flows:
 
-- [`screenshots/01-create.png`](screenshots/01-create.png) — create employee (`201`)
-- [`screenshots/02-list.png`](screenshots/02-list.png) — list employees (`200`)
-- [`screenshots/03-update.png`](screenshots/03-update.png) — update employee (`200`)
-- [`screenshots/04-delete.png`](screenshots/04-delete.png) — delete employee (`200`)
-- [`screenshots/05-validation-400.png`](screenshots/05-validation-400.png) — invalid payload (`400`)
-- [`screenshots/06-unauthorized-401.png`](screenshots/06-unauthorized-401.png) — missing token (`401`)
-
-A combined HTML dump is in [`screenshots/api-responses.html`](screenshots/api-responses.html) (`npm run shots`).
-
-## Postman
-
-Import [`postman/EMS.postman_collection.json`](postman/EMS.postman_collection.json).
 
 1. Run **Login admin** (after seeding). The token is stored in a collection variable.
 2. Run **Create employee**, **List**, **Get**, **Update**, **Delete**.
 3. **Validation error example** and **Unauthorized example** show `400` and `401` responses.
 
-## Design notes (for interview)
 
-- **One Employee collection** for both login identity and HR data keeps the model easy to explain.
-- **Register cannot create admins.** The first admin comes from `npm run seed`.
-- **Joi runs before controllers** so invalid bodies never touch the database.
-- **Duplicate emails** return `409` from both a service check and MongoDB `E11000`.
-- **Passwords** are hashed in a Mongoose `pre('save')` hook and excluded with `select: false`.
-- **Employees can read only their own record**; admins manage everyone.
-
-## Submission
-
-Include this repository (source, `.env.example`, README, Postman collection, screenshots). Do not commit `.env`.
-
-Email: `info@zynvixs.com`  
-Subject: your full name, plus “Backend Developer Intern – Employee Management System”.
